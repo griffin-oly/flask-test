@@ -18,11 +18,11 @@ node {
             def mytag = "ggriffin924/flask-test:pipeline2-${env.BUILD_NUMBER}"
             echo "${mytag}"
             try {
-                sh  docker stop pipeline-test2
-                sh  docker rm pipeline-test2
+                sh  "docker stop pipeline-test2"
+                sh  "docker rm pipeline-test2"
             } catch (all) {
                 // do cleanup
-                echo "Docker container not found"
+                echo "Docker pipeline-test2 not found"
                 // throw new Exception("Stop docker container failed")
             }
             sh "docker run -d --name pipeline-test2 -p 5000:5000 ${mytag}"           

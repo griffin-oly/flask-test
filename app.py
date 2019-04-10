@@ -7,9 +7,13 @@ app = Flask(__name__,
             static_folder='web/static',
             template_folder='web/templates')
 
-@app.route('/')
+@app.route('/healthz')
 def hello_world():
    return 'Hey, we have Flask in a Docker container! Static'
+
+@app.route('/index/')
+def root():
+   return app.send_static_file('index.html')
 
 if __name__ == "__main__":   
   app.run(debug=True, host='0.0.0.0')

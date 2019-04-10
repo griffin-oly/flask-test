@@ -14,7 +14,7 @@ node {
         }
     }
     stage('Deploy Docker image'){
-        # docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:<label>
+        // docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:<label>
         steps {
             sh 'docker stop pipeline-test2'
             sh 'docker rm pipeline-test2'

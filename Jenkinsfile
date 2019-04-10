@@ -9,7 +9,7 @@ node {
     }
     stage('Push Image to dockerhub'){
         docker.withRegistry('https://registry-1.docker.io/v2/', 'pipeline-docker-hub') {
-             app.push("${env.BUILD_NUMBER}")
+             app.push("dev-${env.BUILD_NUMBER}")
              app.push("latest")
         }
     }

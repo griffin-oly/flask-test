@@ -17,8 +17,8 @@ node {
         // docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:<label>
             echo "${env.BUILD_NUMBER}"
             sh ''' 
-                docker stop pipeline-test2 
-                docker rm pipeline-test2"
+                docker stop pipeline-test2 || true 
+                docker rm pipeline-test2" || true
                 docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:pipeline2-${env.BUILD_NUMBER}
             '''
     }

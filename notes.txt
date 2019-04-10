@@ -4,4 +4,5 @@ docker ps    #check to see if running.
 
 # put notes on how to label builds
 
+# as more notes are added.
 

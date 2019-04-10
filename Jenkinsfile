@@ -14,6 +14,7 @@ node {
         }
     }
     stage('Deploy Docker image'){
+        agent any
         // docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:<label>
         steps {
             sh 'docker stop pipeline-test2'

@@ -16,10 +16,13 @@ node {
     stage('Deploy Docker image'){
         // docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:<label>
             echo "${env.BUILD_NUMBER}"
-            sh ''' 
-                docker stop pipeline-test2 || true 
-                docker rm pipeline-test2" || true
-                docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:pipeline2-${env.BUILD_NUMBER}
-            '''
+            try {
+                sh  docker stop pipeline-test2
+                sh  docker rm pipeline-test2
+            } catch (all) {
+                // do cleanup
+                throw new Exception("Stop docker container failed")
+            }
+            sh docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:pipeline2-${env.BUILD_NUMBER}           
     }
 }

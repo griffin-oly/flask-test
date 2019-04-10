@@ -1,5 +1,6 @@
 node {
     def app
+    container_nm = "pipeline-test2"  // mybe move this to an env Var later
 
     stage('Clone repo'){
         checkout scm
@@ -9,22 +10,22 @@ node {
     }
     stage('Push Image to dockerhub'){
         docker.withRegistry('https://registry-1.docker.io/v2/', 'pipeline-docker-hub') {
-             app.push("pipeline2-${env.BUILD_NUMBER}")
+             app.push("${container_nm}-${env.BUILD_NUMBER}")
              app.push("latest")
         }
     }
     stage('Deploy Docker image'){
         // docker run -d --name pipeline-test2 -p 5000:5000 ggriffin924/flask-test:<label>
             def mytag = "ggriffin924/flask-test:pipeline2-${env.BUILD_NUMBER}"
-            echo "${mytag}"
+            echo "My current build image: ${mytag}"
             try {
-                sh  "docker stop pipeline-test2"
-                sh  "docker rm pipeline-test2"
+                sh  "docker stop ${container_nm}"
+                sh  "docker rm ${container_nm}"
             } catch (all) {
                 // do cleanup
-                echo "Docker pipeline-test2 not found"
+                echo "Docker ${container_nm} not found"
                 // throw new Exception("Stop docker container failed")
             }
-            sh "docker run -d --name pipeline-test2 -p 5000:5000 ${mytag}"           
+            sh "docker run -d --name ${container_nm} -p 5000:5000 ${mytag}"           
     }
 }

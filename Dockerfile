@@ -1,6 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.10
 
-MAINTAINER Griffin (ggriffin924@gmail.com)
+label maintainer="Griffin <ggriffin924@gmail.com>""
 
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev

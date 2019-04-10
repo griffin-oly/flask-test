@@ -11,7 +11,7 @@ app = Flask(__name__,
 def hello_world():
    return 'Hey, we have Flask in a Docker container! Static'
 
-@app.route('/index/')
+@app.route('/')
 def root():
    return app.send_static_file('index.html')
 

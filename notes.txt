@@ -4,5 +4,7 @@ docker ps    #check to see if running.
 
 # put notes on how to label builds
 
-# as more notes are added.
+# Clean up docker images
+docker images --quiet -f dangling=true |xargs --no-run-if-empty docker rmi
+docker ps -aq --no-trunc -f status=exited |xargs docker rm
 
